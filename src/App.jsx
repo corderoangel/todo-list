@@ -8,10 +8,13 @@ function App() {
 	const [tasks, setTasks] = useState([]);
 
 	useEffect(() => {
-		const savedTask = loadTasksFromLocalStorage();
-		if (savedTask) {
-			setTasks(savedTask);
-		}
+		const fetchData = () => {
+			const savedTask = loadTasksFromLocalStorage();
+			if (savedTask) {
+				setTasks(savedTask);
+			}
+		};
+		fetchData();
 	}, []);
 
 	useEffect(() => {
