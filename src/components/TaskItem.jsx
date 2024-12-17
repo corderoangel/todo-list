@@ -1,5 +1,5 @@
 import { FaTrash } from "react-icons/fa";
-
+import "./TaskItem.css";
 const TaskItem = ({ task, deleteTask, index }) => {
 	const taskStyle = {
 		padding: "10px",
@@ -21,7 +21,7 @@ const TaskItem = ({ task, deleteTask, index }) => {
 	};
 
 	return (
-		<li key={index} style={taskStyle}>
+		<li className="taskItem" key={index} style={taskStyle}>
 			{task}
 			<FaTrash
 				style={iconStyle}
