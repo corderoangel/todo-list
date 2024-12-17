@@ -1,3 +1,5 @@
+import { FaTrash } from "react-icons/fa";
+
 function TodoList({ tasks, deleteTask }) {
 	const todoListStyle = {
 		backgroundColor: "#fff",
@@ -23,6 +25,17 @@ function TodoList({ tasks, deleteTask }) {
 		cursor: "pointer",
 	};
 
+	const iconStyle = {
+		cursor: "pointer",
+		fontSize: "1.2rem",
+		color: "#f44336",
+		transition: "color 0.3s",
+	};
+
+	const iconHoverStyle = {
+		color: "#e53935",
+	};
+
 	return (
 		<div style={todoListStyle}>
 			<h2>Tasks</h2>
@@ -30,13 +43,14 @@ function TodoList({ tasks, deleteTask }) {
 				{tasks.map((task, index) => (
 					<li key={index} style={taskStyle}>
 						{task}
-						<button
-							style={buttonStyle}
+						<FaTrash
+							style={iconStyle}
+							onMouseEnter={(e) => (e.target.style.color = iconHoverStyle.color)}
+							onMouseLeave={(e) => (e.target.style.color = iconStyle.color)}
 							onClick={() => {
 								deleteTask(index);
-							}}>
-							Delete
-						</button>
+							}}
+						/>
 					</li>
 				))}
 			</ul>
