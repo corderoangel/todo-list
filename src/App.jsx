@@ -1,50 +1,38 @@
 import { useEffect, useState } from "react";
 import "./App.css";
-import TodoList from "./TodoList";
+import TodoList from "./components/TodoList";
+import AddTask from "./components/AddTask";
+import { loadTasksFromLocalStorage, saveTasksToLocalStorage } from "./Utils/LocalStorage";
 
 function App() {
 	const [tasks, setTasks] = useState([]);
 
 	useEffect(() => {
-		const savedTasks = JSON.parse(localStorage.getItem("tasks"));
-		if (savedTasks) {
-			setTasks(savedTasks);
+		const savedTask = loadTasksFromLocalStorage();
+		if (savedTask) {
+			setTasks(savedTask);
 		}
 	}, []);
 
 	useEffect(() => {
 		if (tasks.length > 0) {
-			localStorage.setItem("tasks", JSON.stringify(tasks));
+			saveTasksToLocalStorage(tasks);
 		}
 	}, [tasks]);
-
-	const [newTask, setNewTask] = useState("");
 
 	const deleteTask = (taskIndex) => {
 		setTasks(tasks.filter((_, index) => index !== taskIndex));
 	};
 
-	const addTask = (event) => {
-		event.preventDefault();
+	const addTask = (newTask) => {
 		if (newTask.trim() === "") return;
 		setTasks((prevTasks) => [...prevTasks, newTask]);
-		setNewTask("");
 	};
 
 	return (
 		<div className="App">
 			<h1>Todo List</h1>
-			<form onSubmit={addTask}>
-				<input
-					type="text"
-					value={newTask}
-					onChange={(event) => {
-						setNewTask(event.target.value);
-					}}
-					placeholder="Add a new task"
-				/>
-				<button type="submit">Add</button>
-			</form>
+			<AddTask addTask={addTask} />
 			<TodoList tasks={tasks} deleteTask={deleteTask} />
 		</div>
 	);
