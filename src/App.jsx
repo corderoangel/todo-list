@@ -1,13 +1,18 @@
+import { useState } from "react";
 import "./App.css";
 import TodoList from "./TodoList";
 
 function App() {
-	const tasks = ["tarea 1", "tarea 2", "tarea 3"];
+	const [tasks, setTasks] = useState(["Task 1", "Task 2", "Task 3"]);
+
+	const deleteTask = (taskIndex) => {
+		setTasks(tasks.filter((_, index) => index !== taskIndex));
+	};
 
 	return (
-		<>
-			<TodoList tasks={tasks} />
-		</>
+		<div className="App">
+			<TodoList tasks={tasks} deleteTask={deleteTask} />
+		</div>
 	);
 }
 
