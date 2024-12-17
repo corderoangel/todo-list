@@ -1,11 +1,11 @@
-function TodoList() {
+function TodoList({ tasks }) {
 	return (
 		<div>
-			<h2>TodoList</h2>
+			<h2>Tasks</h2>
 			<ul>
-				<li>Tarea 1</li>
-				<li>Tarea 2</li>
-				<li>Tarea 3</li>
+				{tasks.map((task, index) => (
+					<li key={index}>{task}</li>
+				))}
 			</ul>
 		</div>
 	);
