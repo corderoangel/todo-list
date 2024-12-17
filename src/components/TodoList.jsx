@@ -1,6 +1,9 @@
+import { useTasks } from "../Context/TaskContext";
 import TaskItem from "./TaskItem";
 
-function TodoList({ tasks, deleteTask }) {
+function TodoList() {
+	const { tasks, deleteTask } = useTasks();
+
 	const todoListStyle = {
 		backgroundColor: "#fff",
 		padding: "20px",
@@ -13,7 +16,7 @@ function TodoList({ tasks, deleteTask }) {
 			<h2>Tasks</h2>
 			<ul>
 				{tasks.map((task, index) => (
-					<TaskItem task={task} index={index} deleteTask={deleteTask} />
+					<TaskItem key={index} task={task} index={index} deleteTask={deleteTask} />
 				))}
 			</ul>
 		</div>

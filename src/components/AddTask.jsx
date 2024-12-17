@@ -1,23 +1,23 @@
 import { useState } from "react";
+import { useTasks } from "../Context/TaskContext";
 
-const AddTask = ({ addTask }) => {
-	const [newTask, setNewTask] = useState("");
-	const handleInputChange = (event) => {
-		setNewTask(event.target.value);
-	};
+function AddTask() {
+	const [task, setTask] = useState("");
+	const { addTask } = useTasks();
 
-	const handleSubmit = (event) => {
-		event.preventDefault();
-		addTask(newTask);
-		setNewTask("");
+	const handleAddTask = () => {
+		if (task.trim()) {
+			addTask(task);
+			setTask("");
+		}
 	};
 
 	return (
-		<form onSubmit={handleSubmit}>
-			<input type="text" value={newTask} onChange={handleInputChange} placeholder="Add a new task" />
-			<button type="submit">Add</button>
-		</form>
+		<div>
+			<input type="text" value={task} onChange={(e) => setTask(e.target.value)} placeholder="Add a new task" />
+			<button onClick={handleAddTask}>Add</button>
+		</div>
 	);
-};
+}
 
 export default AddTask;
