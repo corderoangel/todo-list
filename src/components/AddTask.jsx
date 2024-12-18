@@ -22,7 +22,6 @@ function AddTask() {
 				Add <span>Add</span>
 			</button>
 			<div>
-				{/* insertar la imagen que está en assets */}
 				<img src={image} />
 			</div>
 		</div>

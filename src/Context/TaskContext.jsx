@@ -1,9 +1,26 @@
-import { createContext, useContext, useState } from "react";
+import { createContext, useContext, useState, useEffect } from "react";
+import { loadTasksFromLocalStorage, saveTasksToLocalStorage } from "../Utils/LocalStorage";
 
 const TaskContext = createContext();
 
 export const TaskProvider = ({ children }) => {
 	const [tasks, setTasks] = useState([]);
+
+	useEffect(() => {
+		const fetchData = () => {
+			const savedTask = loadTasksFromLocalStorage();
+			if (savedTask) {
+				setTasks(savedTask);
+			}
+		};
+		fetchData();
+	}, []);
+
+	useEffect(() => {
+		if (tasks.length > 0) {
+			saveTasksToLocalStorage(tasks);
+		}
+	}, [tasks]);
 
 	const deleteTask = (taskIndex) => {
 		setTasks(tasks.filter((_, index) => index !== taskIndex));
